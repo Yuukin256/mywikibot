@@ -1,7 +1,1 @@
-# Python Template
-
-```sh
-source bin/activate
-
-pip install pyproject-flake8 black isort
-```
+# mywikibot: 個人的に使う Pywikibot 改善
