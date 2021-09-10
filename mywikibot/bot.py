@@ -1,5 +1,5 @@
 import sys
-from typing import Any, Optional, Union
+from typing import Any, Union
 
 import pywikibot
 from pywikibot.bot import ExistingPageBot, SingleSiteBot, open_webbrowser
