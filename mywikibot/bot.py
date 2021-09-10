@@ -24,8 +24,8 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
     def user_confirm(self, question):
         return True
 
-    def userPut(self, page: pywikibot.Page, oldtext: str, newtext: str, summary: Optional[str] = None):
-        summary = summary or self.opt.summary
+    def userPut(self, page: pywikibot.Page, oldtext: str, newtext: str, **kwargs: Any) -> bool:
+        summary = kwargs.pop("summary") if "summary" in kwargs else self.opt.summary
         context = 0
 
         while True:
@@ -40,7 +40,7 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
             if self.opt.always:
                 page.text = newtext
                 return self._save_page(
-                    page, page.save, summary=summary, asynchronous=True, callback=self._async_callback
+                    page, page.save, summary=summary, asynchronous=True, callback=self._async_callback, **kwargs
                 )
 
             choice = pywikibot.input_choice(
@@ -77,7 +77,7 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
             if choice == "y":
                 page.text = newtext
                 return self._save_page(
-                    page, page.save, summary=summary, asynchronous=True, callback=self._async_callback
+                    page, page.save, summary=summary, asynchronous=True, callback=self._async_callback, **kwargs
                 )
 
             if choice == "n":
@@ -86,7 +86,7 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
 
     # 表示内容を変更したいためオーバーライド
     def exit(self) -> None:
-        self.treatdown()
+        self.teardown()
 
         pywikibot.stopme()
 
