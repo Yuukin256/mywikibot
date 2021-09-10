@@ -11,6 +11,8 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
     """`treat_page()` の実装方法: `current_page` からページを取得し、変更内容は `put_current()` に投げる"""
 
     def __init__(self, **kwargs: Any) -> None:
+        self.update_options = {"summary": ""}
+
         super().__init__(**kwargs)
 
         # skip_page() 以外でのスキップ数のカウンター
