@@ -100,7 +100,7 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
         )
 
         if self._save_counter:
-            now = pywikibot.Timestamp().totimestampformat()
+            now = pywikibot.Timestamp.now().totimestampformat()
             pywikibot.output(
                 f"{{{{利用者の投稿記録リンク|{self.site.user()}|{self._save_counter}|{now}|text={self._save_counter}件}}}}"
             )
