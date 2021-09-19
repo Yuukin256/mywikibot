@@ -42,7 +42,13 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
             if self.opt.always:
                 page.text = newtext
                 return self._save_page(
-                    page, page.save, summary=summary, asynchronous=True, callback=self._async_callback, **kwargs
+                    page,
+                    page.save,
+                    summary=summary,
+                    asynchronous=True,
+                    callback=self._async_callback,
+                    quiet=True,
+                    **kwargs,
                 )
 
             choice = pywikibot.input_choice(
@@ -79,7 +85,13 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
             if choice == "y":
                 page.text = newtext
                 return self._save_page(
-                    page, page.save, summary=summary, asynchronous=True, callback=self._async_callback, **kwargs
+                    page,
+                    page.save,
+                    summary=summary,
+                    asynchronous=True,
+                    callback=self._async_callback,
+                    quiet=True,
+                    **kwargs,
                 )
 
             if choice == "n":
