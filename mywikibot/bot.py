@@ -11,7 +11,7 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
     """`treat_page()` の実装方法: `current_page` からページを取得し、変更内容は `put_current()` に投げる"""
 
     def __init__(self, **kwargs: Any) -> None:
-        self.update_options = {"summary": ""}
+        self.available_options.update({"summary": ""})
 
         super().__init__(**kwargs)
 
@@ -98,6 +98,12 @@ class ReplaceBot(ExistingPageBot, SingleSiteBot):
             f"\n変更しなかったページ数: {self._notchange_counter}"
             f"\nスキップしたページ数: {self._skip_counter}"
         )
+
+        if self._save_counter:
+            now = pywikibot.Timestamp().totimestampformat()
+            pywikibot.output(
+                f"{{{{利用者の投稿記録リンク|{self.site.user()}|{self._save_counter}|{now}|text={self._save_counter}件}}}}"
+            )
 
         exc_info = sys.exc_info()
         if exc_info[0] is None or exc_info[0] is KeyboardInterrupt:
